@@ -4,7 +4,30 @@ html, body {
     padding: 0;
     margin: 0;
     overflow: hidden;
+    background-color: aliceblue;
 }
 
-#app {
+#banner {
+    padding: 3% 30% 3% 30%;
+    text-align: center;
+    font-family: "DejaVu Sans Mono", sans-serif;
+    font-size: 1.1em;
+    margin-bottom: 3%;
+}
+
+#banner > #banner-wrapper {
+    background-color: #347c46;
+    padding: 2% 0 2% 0;
+    box-shadow: inset 0 0 5px 5px black;
+}
+
+#app-wrapper {
+    width: 100%;
+    position: relative;
+    text-align: center;
+}
+
+#app-wrapper > #app {
+    border: 1px solid black;
+    box-shadow: 0 0 5px 5px black;
 }

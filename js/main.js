@@ -5,16 +5,10 @@
 window.onload = function() {
     let app, canvas;
 
-    (function(){
-        let newCanvas = document.createElement("canvas");
-        newCanvas.id = "app";
-        document.body.appendChild(newCanvas);
-    })();
-
     canvas = document.getElementById("app");
 
-    canvas.width  = window.innerWidth;
-    canvas.height = window.innerHeight;
+    canvas.width  = window.innerWidth * 0.8;
+    canvas.height = window.innerHeight * 0.55;
 
     app = new App(canvas);
     app.init();

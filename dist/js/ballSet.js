@@ -24,16 +24,16 @@ var BallSet = function () {
             for (var i = 0, len = 10; i < len; i++) {
                 this.list.push(new Ball({
                     px: this.width / 2 - 5 * cfg.RADIUS + cfg.RADIUS + cfg.RADIUS * i * 2,
-                    py: cfg.RADIUS,
+                    py: cfg.RADIUS * 3,
                     vx: 0, vy: 0,
-                    mass: cfg.MASS, rad: cfg.RADIUS, color: "red"
+                    mass: cfg.MASS, rad: cfg.RADIUS, color: COLORS.purple
                 }));
             }
             this.list.push(new Ball({
                 px: this.width / 2 - 5 * cfg.RADIUS + cfg.RADIUS + cfg.RADIUS * 7,
-                py: this.height - cfg.RADIUS * 2,
+                py: this.height - cfg.RADIUS * 3,
                 vx: 0, vy: 0,
-                mass: cfg.MASS, rad: cfg.RADIUS, color: "green"
+                mass: cfg.MASS, rad: cfg.RADIUS, color: "white"
             }));
         }
     }, {
@@ -50,14 +50,12 @@ var BallSet = function () {
             }
         }
     }, {
-        key: "isAnySelectBall",
-        value: function isAnySelectBall() {
-            var check = false;
-
+        key: "getSelectedBall",
+        value: function getSelectedBall() {
             for (var i = 0, len = this.length; i < len; i++) {
-                if (this.list[i].selected) check = true;
+                if (this.list[i].selected) return this.list[i];
             }
-            return check;
+            return false;
         }
     }, {
         key: "mouseNotOnAnyBall",
@@ -66,6 +64,23 @@ var BallSet = function () {
                 if (this.list[i].mouseOn) return false;
             }
             return true;
+        }
+    }, {
+        key: "isOnBall",
+        value: function isOnBall(x, y) {
+            var check = false;
+            for (var n = 0, len = this.length; n < len; n++) {
+                var ball = this.list[n];
+                if (x > ball.x - ball.rad && x < ball.x + ball.rad && y > ball.y - ball.rad && y < ball.y + ball.rad) {
+                    check = true;
+                }
+            }
+            return check;
+        }
+    }, {
+        key: "isInScreen",
+        value: function isInScreen(x, y) {
+            return x > cfg.RADIUS && x < this.width - cfg.RADIUS && y > cfg.RADIUS && y < this.height - cfg.RADIUS;
         }
     }, {
         key: "unSelectBalls",

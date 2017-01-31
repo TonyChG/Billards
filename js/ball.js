@@ -28,18 +28,11 @@ class Ball {
     set vy (vy) { this.vet.y = vy }
 
     draw (ctx) {
-        if (this.mouseOn) {
-            ctx.beginPath();
-            ctx.fillStyle = "white";
-            ctx.arc(this.x, this.y, this.rad+1, 0, 2*Math.PI);
-            ctx.fill();
-        }
-        ctx.beginPath();
-        ctx.fillStyle = this.selected ? "yellow" : this.color;
-        ctx.arc(this.x, this.y, this.rad, 0, 2*Math.PI);
-        ctx.fill();
+        if (this.mouseOn) drawCircle(ctx, this.x, this.y, this.rad+1, "white");
+        let circleColor = this.selected ? COLORS.orange : this.color;
+        drawCircle(ctx, this.x, this.y, this.rad, circleColor);
         ctx.fillStyle = "white";
-        ctx.font = "14px Arial";
+        ctx.font = "9px Arial";
         ctx.fillText(this.vet.toString(), this.x-30, this.y+this.rad+15);
     }
 
@@ -49,23 +42,27 @@ class Ball {
     }
 
     wallCollision (width, height) {
-        if (this.x - this.rad < 0) {
-            this.x = this.rad;
+        if (this.x - this.rad < cfg.RADIUS) {
+            this.x = this.rad*2;
             this.vet.invertX();
-        } else if (this.x + this.rad > width) {
-            this.x = width - this.rad;
+        } else if (this.x + this.rad > width-cfg.RADIUS*2) {
+            this.x = width - this.rad*3;
             this.vet.invertX();
         }
-        if (this.y - this.rad < 0) {
-            this.y = this.rad;
+        if (this.y - this.rad < cfg.RADIUS) {
+            this.y = this.rad*2;
             this.vet.invertY();
-        } else if (this.y + this.rad > height) {
-            this.y = height - this.rad;
+        } else if (this.y + this.rad > height-cfg.RADIUS*2) {
+            this.y = height - this.rad*3;
             this.vet.invertY();
         }
     }
 
-    getDist (ball) {
+    getVelocity() {
+        console.log("Velocity!");
+    }
+
+    getDist(ball) {
         let dx = (this.x - ball.x) * (this.x - ball.x),
             dy = (this.y - ball.y) * (this.y - ball.y);
         return Math.sqrt(dx + dy);
@@ -101,8 +98,8 @@ class Ball {
             // b1.move();
             // b2.move();
 
-            b1.color = rand_color();
-            b2.color = rand_color();
+            // b1.color = rand_color();
+            // b2.color = rand_color();
 
         } else if (dist == this.rad + ball.rad) {
             this.move();

@@ -27,18 +27,11 @@ var Ball = function () {
     _createClass(Ball, [{
         key: "draw",
         value: function draw(ctx) {
-            if (this.mouseOn) {
-                ctx.beginPath();
-                ctx.fillStyle = "white";
-                ctx.arc(this.x, this.y, this.rad + 1, 0, 2 * Math.PI);
-                ctx.fill();
-            }
-            ctx.beginPath();
-            ctx.fillStyle = this.selected ? "yellow" : this.color;
-            ctx.arc(this.x, this.y, this.rad, 0, 2 * Math.PI);
-            ctx.fill();
+            if (this.mouseOn) drawCircle(ctx, this.x, this.y, this.rad + 1, "white");
+            var circleColor = this.selected ? COLORS.orange : this.color;
+            drawCircle(ctx, this.x, this.y, this.rad, circleColor);
             ctx.fillStyle = "white";
-            ctx.font = "14px Arial";
+            ctx.font = "9px Arial";
             ctx.fillText(this.vet.toString(), this.x - 30, this.y + this.rad + 15);
         }
     }, {
@@ -49,20 +42,25 @@ var Ball = function () {
     }, {
         key: "wallCollision",
         value: function wallCollision(width, height) {
-            if (this.x - this.rad < 0) {
-                this.x = this.rad;
+            if (this.x - this.rad < cfg.RADIUS) {
+                this.x = this.rad * 2;
                 this.vet.invertX();
-            } else if (this.x + this.rad > width) {
-                this.x = width - this.rad;
+            } else if (this.x + this.rad > width - cfg.RADIUS * 2) {
+                this.x = width - this.rad * 3;
                 this.vet.invertX();
             }
-            if (this.y - this.rad < 0) {
-                this.y = this.rad;
+            if (this.y - this.rad < cfg.RADIUS) {
+                this.y = this.rad * 2;
                 this.vet.invertY();
-            } else if (this.y + this.rad > height) {
-                this.y = height - this.rad;
+            } else if (this.y + this.rad > height - cfg.RADIUS * 2) {
+                this.y = height - this.rad * 3;
                 this.vet.invertY();
             }
+        }
+    }, {
+        key: "getVelocity",
+        value: function getVelocity() {
+            console.log("Velocity!");
         }
     }, {
         key: "getDist",
@@ -104,8 +102,8 @@ var Ball = function () {
                 // b1.move();
                 // b2.move();
 
-                b1.color = rand_color();
-                b2.color = rand_color();
+                // b1.color = rand_color();
+                // b2.color = rand_color();
             } else if (dist == this.rad + ball.rad) {
                 this.move();
             }

@@ -8,16 +8,10 @@ window.onload = function () {
     var app = void 0,
         canvas = void 0;
 
-    (function () {
-        var newCanvas = document.createElement("canvas");
-        newCanvas.id = "app";
-        document.body.appendChild(newCanvas);
-    })();
-
     canvas = document.getElementById("app");
 
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    canvas.width = window.innerWidth * 0.8;
+    canvas.height = window.innerHeight * 0.55;
 
     app = new App(canvas);
     app.init();

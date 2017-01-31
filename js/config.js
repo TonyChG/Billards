@@ -4,9 +4,9 @@
 
 const cfg = {
 
-    FPS     : 20,
-    N_BALLS : 10,
-    RADIUS  : 25,
+    FPS     : 60,
+    N_BALLS : 15,
+    RADIUS  : 15,
     GRAVITY : 0,
     FRICTION: 0.985,
     MASS    : 10,
