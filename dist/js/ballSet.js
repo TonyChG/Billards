@@ -20,26 +20,48 @@ var BallSet = function () {
 
     _createClass(BallSet, [{
         key: "poolGame",
-        value: function poolGame() {
-            for (var i = 0, len = 10; i < len; i++) {
-                this.list.push(new Ball({
-                    px: this.width / 2 - 5 * cfg.RADIUS + cfg.RADIUS + cfg.RADIUS * i * 2,
-                    py: cfg.RADIUS * 3,
-                    vx: 0, vy: 0,
-                    mass: cfg.MASS, rad: cfg.RADIUS, color: COLORS.purple
-                }));
-            }
+        value: function poolGame(x, y) {
+            var diam = cfg.RADIUS * 2;
+            var colors = ["#FF3F23", "#FDE42A"];
+
             this.list.push(new Ball({
-                px: this.width / 2 - 5 * cfg.RADIUS + cfg.RADIUS + cfg.RADIUS * 7,
-                py: this.height - cfg.RADIUS * 3,
+                px: this.width / 5, py: this.height / 2,
                 vx: 0, vy: 0,
+                mass: cfg.MASS, rad: cfg.RADIUS, color: "white"
+            }));
+            var n = 0;
+            var color = void 0;
+            for (var j = 0; j < 5; j++) {
+                for (var i = 0; i < j + 1; i++) {
+                    color = j == 2 && i == 1 ? "black" : colors[n % 2];
+                    this.list.push(new Ball({
+                        px: x + j * (diam - 3), py: y + (diam * i - cfg.RADIUS * j),
+                        vx: 0, vy: 0,
+                        mass: cfg.MASS, rad: cfg.RADIUS, color: color
+                    }));
+                    n++;
+                }
+            }
+        }
+    }, {
+        key: "debug",
+        value: function debug() {
+            this.list.push(new Ball({
+                px: this.width / 3, py: this.height / 2,
+                vx: 10, vy: 0,
+                mass: cfg.MASS, rad: cfg.RADIUS, color: "white"
+            }));
+            this.list.push(new Ball({
+                px: this.width - this.width / 3, py: this.height / 2 + 10,
+                vx: -10, vy: 0,
                 mass: cfg.MASS, rad: cfg.RADIUS, color: "white"
             }));
         }
     }, {
         key: "init",
         value: function init() {
-            this.poolGame();
+            this.poolGame(this.width - this.width / 4, this.height / 2);
+            // this.debug();
             return this;
         }
     }, {

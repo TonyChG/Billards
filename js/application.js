@@ -10,6 +10,7 @@ class App {
         this.width  = cvs.width;
         this.render = cvs.getContext("2d");
         this.balls  = new BallSet(this.width, this.height, this.render).init();
+        this.holes  = new HoleSet(this.width, this.height, this.render).init();
         this.interval = 1000 / cfg.FPS;
         this.then = Date.now();
     }
@@ -72,15 +73,6 @@ class App {
         this.getPosOfFirstObj();
     }
 
-    drawTable () {
-        drawCircle(this.render, cfg.RADIUS, cfg.RADIUS, cfg.RADIUS, "black");
-        drawCircle(this.render, this.width-cfg.RADIUS, cfg.RADIUS, cfg.RADIUS, "black");
-        drawCircle(this.render, this.width/2, cfg.RADIUS, cfg.RADIUS, "black");
-        drawCircle(this.render, cfg.RADIUS, this.height-cfg.RADIUS, cfg.RADIUS, "black");
-        drawCircle(this.render, this.width/2, this.height-cfg.RADIUS, cfg.RADIUS, "black");
-        drawCircle(this.render, this.width-cfg.RADIUS, this.height-cfg.RADIUS, cfg.RADIUS, "black");
-    }
-
     update () {
         let now = Date.now(),
             delta = now - this.then;
@@ -94,9 +86,8 @@ class App {
             this.render.fillStyle = "#347c46";
             this.render.fillRect(0, 0, this.width, this.height);
 
-            this.drawTable();
-
             this.balls.drawBalls();
+            this.holes.drawHoles();
             this.balls.computeCollision();
 
             this.drawPath();
