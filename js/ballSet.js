@@ -101,11 +101,19 @@ class BallSet {
         }
     }
 
-    computeCollision () {
+    anyBallInHole (holes) {
+        for (let n = 0, len = this.length; n < len; n++) {
+            if (holes.ballisInHole(this.list[n])) {
+                console.log("in Hole!");
+            }
+        }
+    }
+
+    computeCollision (holes) {
         for (let i = 0, len = this.length; i < len; i++) {
             let b1 = this.list[i];
-            b1.move();
             b1.wallCollision(this.width, this.height);
+            b1.move();
             for (let j = i + 1, len = this.length; j < len; j++) {
                 let b2 = this.list[j];
                 if (b1 != b2) b1.resolveCollision(b2);

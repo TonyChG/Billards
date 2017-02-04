@@ -38,6 +38,15 @@ class HoleSet {
     }
 
     ballisInHole (ball) {
+        let check = false;
 
+        for (let n = 0, len = this.list.length; n < len; n++) {
+            let hole = this.list[n],
+                dx = ball.x - hole.x,
+                dy = ball.y - hole.y,
+                dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < ball.rad + hole.rad) check = true;
+        }
+        return check;
     }
 }

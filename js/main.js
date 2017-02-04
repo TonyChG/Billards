@@ -11,6 +11,7 @@ window.onload = function() {
     canvas.height = window.innerHeight * 0.55;
 
     app = new App(canvas);
+
     app.init();
     app.update();
 };

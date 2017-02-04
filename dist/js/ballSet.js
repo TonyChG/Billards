@@ -112,12 +112,21 @@ var BallSet = function () {
             }
         }
     }, {
+        key: "anyBallInHole",
+        value: function anyBallInHole(holes) {
+            for (var n = 0, len = this.length; n < len; n++) {
+                if (holes.ballisInHole(this.list[n])) {
+                    console.log("in Hole!");
+                }
+            }
+        }
+    }, {
         key: "computeCollision",
-        value: function computeCollision() {
+        value: function computeCollision(holes) {
             for (var i = 0, len = this.length; i < len; i++) {
                 var b1 = this.list[i];
-                b1.move();
                 b1.wallCollision(this.width, this.height);
+                b1.move();
                 for (var j = i + 1, _len = this.length; j < _len; j++) {
                     var b2 = this.list[j];
                     if (b1 != b2) b1.resolveCollision(b2);

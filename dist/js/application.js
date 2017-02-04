@@ -111,7 +111,7 @@ var App = function () {
 
                 this.balls.drawBalls();
                 this.holes.drawHoles();
-                this.balls.computeCollision();
+                this.balls.computeCollision(this.holes);
 
                 this.drawPath();
             }

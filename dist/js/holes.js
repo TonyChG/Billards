@@ -49,7 +49,18 @@ var HoleSet = function () {
         }
     }, {
         key: "ballisInHole",
-        value: function ballisInHole(ball) {}
+        value: function ballisInHole(ball) {
+            var check = false;
+
+            for (var n = 0, len = this.list.length; n < len; n++) {
+                var hole = this.list[n],
+                    dx = ball.x - hole.x,
+                    dy = ball.y - hole.y,
+                    dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < ball.rad + hole.rad) check = true;
+            }
+            return check;
+        }
     }]);
 
     return HoleSet;
